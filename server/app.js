@@ -5,7 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const orgRoutes = require('./routes/orgRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const incidentRoutes = require('./routes/incidentRoutes');
-
+const publicRoutes = require('./routes/publicRoutes');
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api', orgRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api', incidentRoutes);
-
+app.use('/api', publicRoutes);
 
 
 // Routes (to be added soon)

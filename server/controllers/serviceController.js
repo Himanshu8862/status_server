@@ -1,4 +1,5 @@
 const Service = require('../models/Service');
+const { io } = require('../server');
 
 // Create a new service
 exports.createService = async (req, res) => {
@@ -35,6 +36,15 @@ exports.updateService = async (req, res) => {
       { name, description, status },
       { new: true }
     );
+
+    // Emit to clients in the org
+    const Organization = require('../models/Organization');
+    const org = await Organization.findById(req.user.organizationId);
+    io.emitStatusUpdate(org.slug, {
+      type: 'service-update',
+      service: updated
+    });
+
     res.json(updated);
   } catch (err) {
     res.status(500).json({ message: err.message });
